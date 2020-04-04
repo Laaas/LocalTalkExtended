@@ -22,8 +22,8 @@ function(gamerules, listener, speaker, channel)
 	local speaker_client = GetOwner(speaker)
 
 	if
-		speaker_client and basecommands:IsClientGagged(speaker_client) or
-		listener:GetClientMuted(speaker_client:GetId())
+		speaker_client and (basecommands:IsClientGagged(speaker_client) or
+		listener:GetClientMuted(speaker_client:GetId()))
 	then
 		return false
 	end

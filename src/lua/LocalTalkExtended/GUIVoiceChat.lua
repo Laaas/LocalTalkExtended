@@ -153,7 +153,8 @@ function GUIVoiceChat:SendKeyEvent(key, down, amount)
 		if ChatUI_EnteringChatMessage() then return end
 
 		local iscomm = player:isa "Commander"
-
+		local isspectator = player:isa "Spectator"
+	
 		local bind = iscomm and "VoiceChatCom" or "VoiceChat"
 		if GetIsBinding(key, bind) then
 			self.recordBind    = bind
@@ -167,7 +168,7 @@ function GUIVoiceChat:SendKeyEvent(key, down, amount)
 			-- easy way to make enemy players hear them, and attempting
 			-- to remove this check will just result in a voice chat
 			-- bar flickering with no sound being emitted.
-			if not iscomm and GetIsBinding(key, "LocalVoiceChat") then
+			if not iscomm and not isspectator and GetIsBinding(key, "LocalVoiceChat") then
 				self.recordBind    = "LocalVoiceChat"
 				self.recordEndTime = nil
 				ResetBarForClient(client)
